@@ -1,0 +1,13 @@
+{
+	"name": "AzureDataLakeStore1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "AzureDataLakeStore",
+		"typeProperties": {
+			"dataLakeStoreUri": "https://shravadls.azuredatalakestore.net/webhdfs/v1",
+			"tenant": "de08c407-19b9-427d-9fe8-edf254300ca7",
+			"subscriptionId": "287e8af8-dbb9-4091-a831-ef741386a084",
+			"resourceGroupName": "ADF_training"
+		}
+	}
+}

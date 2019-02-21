@@ -1,0 +1,53 @@
+{
+	"name": "pipeline2",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy Data1",
+				"type": "Copy",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"source": {
+						"type": "SqlSource",
+						"sqlReaderQuery": {
+							"value": "Select SalesOrderID, OrderDate, SubTotal, ModifiedDate from InPremiseSalesOrderHeader where Convert(date, ModifiedDate) > '@{formatDateTime(adddays(utcnow(), -500), 'yyyy-MM-dd' )}'",
+							"type": "Expression"
+						}
+					},
+					"sink": {
+						"type": "AzureDataLakeStoreSink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"SalesOrderID": "SalesOrderID",
+							"OrderDate": "OrderDate",
+							"SubTotal": "SubTotal",
+							"ModifiedDate": "ModifiedDate"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SqlServerTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureDataLakeStoreFile1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

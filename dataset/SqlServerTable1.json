@@ -1,0 +1,32 @@
+{
+	"name": "SqlServerTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "link_shravsql_local",
+			"type": "LinkedServiceReference"
+		},
+		"type": "SqlServerTable",
+		"structure": [
+			{
+				"name": "SalesOrderID",
+				"type": "Int32"
+			},
+			{
+				"name": "OrderDate",
+				"type": "DateTime"
+			},
+			{
+				"name": "SubTotal",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "DateTime"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[dbo].[InPremiseSalesOrderHeader]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

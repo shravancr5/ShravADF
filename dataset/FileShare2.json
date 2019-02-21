@@ -1,0 +1,14 @@
+{
+	"name": "FileShare2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "FileServer1",
+			"type": "LinkedServiceReference"
+		},
+		"type": "FileShare",
+		"typeProperties": {
+			"fileName": ""
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

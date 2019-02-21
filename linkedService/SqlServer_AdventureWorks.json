@@ -1,0 +1,15 @@
+{
+	"name": "SqlServer_AdventureWorks",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=Shravsql2017;initial catalog=AdventureWorks2014;user id=474122",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2OGY4MWQzNy1mY2YwLTRjNjktOTI3ZC0xYzI3ZjMxYzgwMWQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "shravsqlR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "FileServer1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "C:\\temp\\",
+			"userId": "474122",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI0ODNiYTYyZC1mMTVlLTQwNTUtOGNlNi1iYWNmZDA3NGFlZDQiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "shravsqlR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

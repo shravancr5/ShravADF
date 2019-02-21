@@ -1,0 +1,41 @@
+{
+	"name": "AzureDataLakeStoreFile1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStore1",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureDataLakeStoreFile",
+		"structure": [
+			{
+				"name": "SalesOrderID"
+			},
+			{
+				"name": "OrderDate"
+			},
+			{
+				"name": "SubTotal"
+			},
+			{
+				"name": "ModifiedDate"
+			}
+		],
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": ",",
+				"rowDelimiter": "",
+				"nullValue": "\\N",
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "sales",
+			"folderPath": {
+				"value": "/@{formatDateTime(adddays(utcnow(), -1), 'yyyy')}/@{formatDateTime(adddays(utcnow(), -1), 'MM')}/@{formatDateTime(adddays(utcnow(), -1), 'dd')}",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

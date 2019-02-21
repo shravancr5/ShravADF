@@ -1,0 +1,15 @@
+{
+	"name": "link_shravsql_local",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=Shravsql2017;initial catalog=ADF_training_db;user id=474122",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3Zjc2ODUxZS1kODBkLTRmZGItYTVlYi04ZTgwNWNiZTk2MDUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "shravsqlR",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

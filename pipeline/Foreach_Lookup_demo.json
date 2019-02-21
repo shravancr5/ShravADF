@@ -1,0 +1,145 @@
+{
+	"name": "Foreach_Lookup_demo",
+	"properties": {
+		"description": "First do lookup and pass output value to for each",
+		"activities": [
+			{
+				"name": "Lookup_CATG",
+				"type": "Lookup",
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"source": {
+						"type": "SqlSource",
+						"sqlReaderStoredProcedureName": "[Demo].[GetProductCategories]"
+					},
+					"dataset": {
+						"referenceName": "SqlServerTables_CATG",
+						"type": "DatasetReference"
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach_CATG",
+				"description": "takes one by one categories from lookup and write it into the data",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup_CATG",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup_CATG').output.value",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Copy Data_Sales",
+							"type": "Copy",
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"typeProperties": {
+								"source": {
+									"type": "SqlSource",
+									"sqlReaderStoredProcedureName": "[Demo].[GetSales]",
+									"storedProcedureParameters": {
+										"ProductCategory": {
+											"type": "String",
+											"value": {
+												"value": "@item().Category",
+												"type": "Expression"
+											}
+										}
+									}
+								},
+								"sink": {
+									"type": "AzureDataLakeStoreSink"
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"columnMappings": {
+										"OrderDate": "OrderDate",
+										"PurchaseOrderNumber": "PurchaseOrderNumber",
+										"Amount": "Amount"
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SqlServerTable_SqltoADLS",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "AzureDataLakeStoreFile_sales",
+									"type": "DatasetReference"
+								}
+							]
+						},
+						{
+							"name": "Stored Procedure1",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [
+								{
+									"activity": "Copy Data_Sales",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"typeProperties": {
+								"storedProcedureName": "[Demo].[UpdateProcessingDetails]",
+								"storedProcedureParameters": {
+									"Duration": {
+										"value": {
+											"value": "@activity('Copy Data_Sales').output.copyDuration",
+											"type": "Expression"
+										},
+										"type": "Int32"
+									},
+									"ProductCategory": {
+										"value": {
+											"value": "@item().Category",
+											"type": "Expression"
+										},
+										"type": "String"
+									}
+								}
+							},
+							"linkedServiceName": {
+								"referenceName": "SqlServer_AdventureWorks",
+								"type": "LinkedServiceReference"
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
