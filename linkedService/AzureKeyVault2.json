@@ -1,0 +1,9 @@
+{
+	"name": "AzureKeyVault2",
+	"properties": {
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://shravvault.vault.azure.net/"
+		}
+	}
+}
